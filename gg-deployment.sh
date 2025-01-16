@@ -35,10 +35,14 @@ function InstallPowerShell
 # Any errors here, and this script will exist without any other prompts.
 function GetPayload
 {
-	read -p "Please provide an endpoint: " GGEP
+	apt install beep -y
+	GGEP='none'
+	while [[ "$GGEP" == "none" ]]; do
+		beep
+		read -p "Please provide an endpoint: " GGEP
+	done
 	curl -s $GGEP -o Payload.ps1
 	pwsh -f ./Payload.ps1
-	exit
 }
 
 Init
