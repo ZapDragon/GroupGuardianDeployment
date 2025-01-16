@@ -17,7 +17,7 @@ function Init
 		InstallPowerShell
 	fi
 	
-	Execute
+	GetPayload
 }
 
 # Get and install Powershell - Yes, PowerShell. Judge me all you want.
@@ -33,7 +33,7 @@ function InstallPowerShell
 
 # Get the Endpoint URL, and execute the downloaded payload.
 # Any errors here, and this script will exist without any other prompts.
-function Execute
+function GetPayload
 {
 	read -p "Please provide an endpoint: " GGEP
 	curl -s $GGEP -o Payload.ps1
