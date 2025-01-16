@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/bin/env bash
 
 ## Group Guardian Node Bootstrap
 
@@ -37,7 +37,7 @@ function GetPayload
 {
 	apt install beep -y
 	GGEP='none'
-	while [[ "$GGEP" == "none" ]]; do
+	while [[ "$GGEP" == "none" || "$GGEP" == "" ]]; do
 		beep
 		read -p "Please provide an endpoint: " GGEP
 	done
