@@ -11,6 +11,10 @@
 # First function called, after script init.
 function Init
 {
+	apt update
+	apt full-upgrade -y
+	apt install curl beep -y
+	clear
 	if [ $(which pwsh) ]; then
 		echo "PowerShell is already installed"
 	else
@@ -24,10 +28,10 @@ function Init
 function InstallPowerShell
 {
 	echo "Installing PowerShell"
-	wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.6/powershell_7.4.6-1.deb_amd64.deb
-	dpkg -i powershell_7.4.6-1.deb_amd64.deb
+	curl -s https://github.com/PowerShell/PowerShell/releases/download/v7.4.6/powershell_7.4.6-1.deb_amd64.deb -o pwsh_7.4.6.deb
+	dpkg -i pwsh_7.4.6.deb
 	apt install -f
-	rm powershell_7.4.6-1.deb_amd64.deb
+	rm pwsh_7.4.6.deb
 	echo "Installed PowerShell"
 }
 
@@ -35,7 +39,6 @@ function InstallPowerShell
 # Any errors here, and this script will exist without any other prompts.
 function GetPayload
 {
-	apt install beep -y
 	GGEP='none'
 	while [[ "$GGEP" == "none" || "$GGEP" == "" ]]; do
 		beep
