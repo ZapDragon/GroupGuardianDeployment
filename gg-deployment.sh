@@ -9,7 +9,7 @@
 #
 
 # First function called, after script init.
-function Init()
+function Init
 {
 	if [ $(which pwsh) ]; then
 		echo "PowerShell is already installed"
@@ -21,7 +21,7 @@ function Init()
 }
 
 # Get and install Powershell - Yes, PowerShell. Judge me all you want.
-function InstallPowerShell()
+function InstallPowerShell
 {
 	echo "Installing PowerShell"
 	wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.6/powershell_7.4.6-1.deb_amd64.deb
