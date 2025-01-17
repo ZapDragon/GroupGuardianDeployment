@@ -25,12 +25,10 @@ function Init
 		echo "Installed PowerShell"
     fi
 	
-	cat <<EOF >> ./ggps-bootstrap.ps1
+	cat <<EOF > ./ggps-bootstrap.ps1
 # GG PS BOOSTRAP
-$URI = Read-Host 'EndPoint'
-Invoke-WebRequest -Uri $URI -OutFile ./GGDeployment.ps1
+Invoke-WebRequest -Uri (Read-Host 'EndPoint') -OutFile ./GGDeployment.ps1
 Import-Module ./GGDeployment.ps1
-
 EOF
 	clear
 	echo 'PS1 Bootstrap saved. Run "pwsh -Interactive -f ./ggps-bootstrap.ps1" to begin deployment.'
