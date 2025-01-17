@@ -39,7 +39,7 @@ function GetPayload
 {
     if [[ "$GGEP" != $null && "$GGEP" != "" ]]; then
         echo "EndPoint is $GGEP"
-        curl -s $GGEP -o Payload.ps1
+        curl -s "$GGEP" -o Payload.ps1
         pwsh -f ./Payload.ps1
     else
         echo "You must specificy an endpoint as an argument to this script"
