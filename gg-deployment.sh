@@ -16,34 +16,28 @@ function Init
     if [ $(which pwsh) ]; then
         echo "PowerShell is already installed"
     else
-        InstallPowerShell
+		# Get and install Powershell - Yes, PowerShell. Judge me all you want.
+        echo "Installing PowerShell"
+		curl -s https://github.com/PowerShell/PowerShell/releases/download/v7.4.6/powershell_7.4.6-1.deb_amd64.deb -o pwsh_7.4.6.deb
+		dpkg -i pwsh_7.4.6.deb
+		apt install -f
+		rm pwsh_7.4.6.deb
+		echo "Installed PowerShell"
     fi
+	
+	cat <<EOF >> ./ggps-bootstrap.ps1
+# GG PS BOOSTRAP
+[Console]::Write("EndPoint: ")
+$URI = [Console]::ReadLine()
 
-    GetPayload
-}
+Invoke-WebRequest -Uri $URI -OutFile ./GGDeployment.ps1
 
-# Get and install Powershell - Yes, PowerShell. Judge me all you want.
-function InstallPowerShell
-{
-    echo "Installing PowerShell"
-    curl -s https://github.com/PowerShell/PowerShell/releases/download/v7.4.6/powershell_7.4.6-1.deb_amd64.deb -o pwsh_7.4.6.deb
-    dpkg -i pwsh_7.4.6.deb
-    apt install -f
-    rm pwsh_7.4.6.deb
-    echo "Installed PowerShell"
-}
+Import-Module ./GGDeployment.ps1
 
-# Get the Endpoint URL, and execute the downloaded payload.
-# Any errors here, and this script will exit without any other prompts.
-function GetPayload
-{
-    if [[ "$GGEP" != $null && "$GGEP" != "" ]]; then
-        echo "EndPoint is $GGEP"
-        curl -s "$GGEP" -o Payload.ps1
-        pwsh -Interactive -f ./Payload.ps1
-    else
-        echo "You must specificy an endpoint as an argument to this script"
-    fi
+EOF
+	clear
+	echo 'PS1 Bootstrap saved. Run "pwsh -Interactive -f ./ggps-bootstrap.ps1" to begin deployment.'
+	
 }
 
 Init
